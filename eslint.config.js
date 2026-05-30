@@ -21,7 +21,7 @@ module.exports = defineConfig([
     },
   },
   {
-    ignores: ['dist/*', '.expo/*', 'node_modules/*', 'android/*', 'ios/*'],
+    ignores: ['dist/*', '.expo/*', 'node_modules/*', 'android/*', 'ios/*', 'src/db/migrations/*'],
   },
   {
     // Node CLI scripts: console output is intentional.

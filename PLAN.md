@@ -70,15 +70,15 @@
 
 **Goal:** All primary data (tasks, reminders, expenses, progress) lives in SQLite. Online DB is a sync target only.
 
-- [ ] Install `expo-sqlite` (SDK 56 API — confirm against versioned docs)
-- [ ] Choose ORM/query layer: **Drizzle ORM** with `drizzle-orm/expo-sqlite` (typed, migrations, no native build)
-- [ ] Define schema modules per feature under `src/db/schema/*.ts`
-  - `tasks`, `reminders`, `alarms`, `progress_entries`, `expenses`, `wallets`, `categories`, `user_settings`
-- [ ] Set up Drizzle migrations + a `useMigrations()` hook gated on app boot
-- [ ] Create `src/db/client.ts` that opens DB once, exposes typed `db`
+- [x] Install `expo-sqlite` (SDK 56 API — confirm against versioned docs)
+- [x] Choose ORM/query layer: **Drizzle ORM** with `drizzle-orm/expo-sqlite` (typed, migrations, no native build)
+- [x] Define schema modules per feature under `src/db/schema/*.ts`
+  - `tasks`, `reminders`, `progress_entries`, `wallets`, `categories`, `transactions`, `user_settings` (alarms folded into `reminders` for v1)
+- [x] Set up Drizzle migrations + a `DatabaseProvider` gated on app boot
+- [x] Create `src/db/client.ts` that opens DB once, exposes typed `db`
 - [ ] Create repository layer (`src/features/<feature>/services/*.repo.ts`) — no direct DB access from components
-- [ ] Add sync metadata columns (`updated_at`, `synced_at`, `deleted_at`, `dirty`) on every syncable table
-- [ ] Outbox pattern for offline writes (`sync_outbox` table)
+- [x] Add sync metadata columns (`updated_at`, `synced_at`, `deleted_at`, `dirty`) on every syncable table
+- [x] Outbox pattern for offline writes (`sync_outbox` table)
 
 **Best practices**
 
