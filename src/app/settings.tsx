@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { AppLockSettings } from '@/features/app-lock';
 import { useAuth } from '@/features/auth';
 import { ThemeToggle } from '@/features/theme';
 
@@ -25,6 +26,10 @@ export default function SettingsScreen() {
               Choose how Helpy looks. System follows your device.
             </ThemedText>
             <ThemeToggle />
+          </Section>
+
+          <Section title="Security">
+            <AppLockSettings />
           </Section>
 
           {user ? (

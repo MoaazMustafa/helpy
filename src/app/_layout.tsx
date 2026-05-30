@@ -8,6 +8,7 @@ import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import AppTabs from '@/components/app-tabs';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { DatabaseProvider } from '@/db/provider';
+import { LockScreen, PrivacyCover, useAppLock, useAutoLock } from '@/features/app-lock';
 import { useAuth } from '@/features/auth';
 import { SignInScreen } from '@/features/auth/components/sign-in-screen';
 import { useResolvedScheme } from '@/hooks/use-theme';
@@ -16,12 +17,19 @@ import { queryClient } from '@/lib/query-client';
 function AuthGate() {
   const hydrated = useAuth((s) => s.hydrated);
   const user = useAuth((s) => s.user);
-  if (!hydrated) return null;
+  const lockHydrated = useAppLock((s) => s.hydrated);
+  const isLocked = useAppLock((s) => s.isLocked);
+  useAutoLock();
+
+  if (!hydrated || !lockHydrated) return null;
   if (!user) return <SignInScreen />;
+
   return (
     <>
       <AnimatedSplashOverlay />
       <AppTabs />
+      <PrivacyCover />
+      {isLocked ? <LockScreen /> : null}
     </>
   );
 }

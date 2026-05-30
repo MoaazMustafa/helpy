@@ -113,14 +113,14 @@
 
 **Goal:** Apple-style auto-lock with biometric unlock fallback to device passcode.
 
-- [ ] Install `expo-local-authentication`
-- [ ] Add `useAppLock()` store: `locked | unlocked`, timestamps, `lockAfterSeconds`
-- [ ] Lock on `AppState` change to `background`/`inactive` after configurable timeout (Immediately / 1m / 5m / 15m / Never)
-- [ ] Full-screen `LockScreen` modal rendered at root, blocks all routes when `locked`
-- [ ] Trigger `LocalAuthentication.authenticateAsync({ disableDeviceFallback: false, requireConfirmation: false })` on mount
-- [ ] Settings: enable/disable app lock, choose timeout, require auth for expenses module separately
-- [ ] Privacy screen: render a blur/cover when app moves to background (iOS `expo-blur` overlay)
-- [ ] Store "lock enabled" flag in SecureStore (so the flag itself isn't tampered with)
+- [x] Install `expo-local-authentication`
+- [x] Add `useAppLock()` store: `locked | unlocked`, timestamps, `lockAfterSeconds`
+- [x] Lock on `AppState` change to `background`/`inactive` after configurable timeout (Immediately / 1m / 5m / 15m / Never)
+- [x] Full-screen `LockScreen` modal rendered at root, blocks all routes when `locked`
+- [x] Trigger `LocalAuthentication.authenticateAsync({ disableDeviceFallback: false, requireConfirmation: false })` on mount
+- [x] Settings: enable/disable app lock, choose timeout (require auth for expenses module separately — tracked in Phase 9)
+- [x] Privacy screen: render a blur/cover when app moves to background (iOS `expo-blur` overlay)
+- [x] Store "lock enabled" flag in SecureStore (so the flag itself isn't tampered with)
 
 **Best practices**
 
@@ -206,7 +206,7 @@
 - [ ] Monthly budget per category with progress bars
 - [ ] Quick-add transaction sheet
 - [ ] Charts: spend-by-category donut, monthly trend
-- [ ] Optional biometric gate for opening the module (ties into Phase 5)
+- [ ] Optional biometric gate for opening the module (ties into Phase 5) — **decision: required on every open** (separate prompt independent of app lock)
 - [ ] CSV import/export
 
 **Best practices**
