@@ -11,14 +11,14 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 'Build platform'
+        description: 'Build platform (iOS requires credentials configured non-interactively via EAS first)'
         required: true
-        default: 'all'
+        default: 'android'
         type: choice
         options:
-          - all
           - android
           - ios
+          - all
       profile:
         description: 'Build profile'
         required: true
@@ -59,9 +59,11 @@ jobs:
         run: npm ci
 
       - name: Trigger build
+        env:
+          EAS_BUILD_NO_EXPO_GO_WARNING: 'true'
         run: |
           eas build \
-            --platform ${{ github.event.inputs.platform || 'all' }} \
+            --platform ${{ github.event.inputs.platform || 'android' }} \
             --profile ${{ github.event.inputs.profile || 'production' }} \
             --non-interactive \
             --no-wait

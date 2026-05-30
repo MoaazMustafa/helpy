@@ -17,6 +17,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     icon: './assets/expo.icon',
     bundleIdentifier: 'com.moaazmustafa.helpy',
     supportsTablet: true,
+    infoPlist: {
+      // App uses only standard HTTPS / Apple-provided crypto, so we can
+      // declare exempt encryption to skip the App Store Connect prompt.
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     package: 'com.moaazmustafa.helpy',
