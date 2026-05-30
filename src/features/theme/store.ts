@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { zustandMMKVStorage } from '@/lib/storage';
+import { zustandAsyncStorage } from '@/lib/storage';
 
 export type ThemeMode = 'system' | 'light' | 'dark';
 
@@ -11,7 +11,7 @@ interface ThemePreferenceState {
 }
 
 /**
- * User-controlled theme preference, persisted via MMKV.
+ * User-controlled theme preference, persisted via AsyncStorage.
  *
  * Read with a slice selector to avoid re-renders:
  *   const mode = useThemePreference((s) => s.mode);
@@ -24,7 +24,7 @@ export const useThemePreference = create<ThemePreferenceState>()(
     }),
     {
       name: 'theme-preference',
-      storage: createJSONStorage(() => zustandMMKVStorage),
+      storage: createJSONStorage(() => zustandAsyncStorage),
     },
   ),
 );

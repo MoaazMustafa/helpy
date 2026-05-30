@@ -1,33 +1,24 @@
-import { createMMKV } from 'react-native-mmkv';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
- * Single MMKV instance for the whole app.
+ * App-wide persistent key-value store.
  *
- * MMKV is synchronous, fast, and persistent. Use it for:
+ * Backed by `@react-native-async-storage/async-storage` so it works in Expo
+ * Go, dev builds, and production builds without a native rebuild. Use it for:
  *   - user preferences (theme, app lock timeout, etc.)
  *   - small cached lookups
  *
  * Do NOT use it for:
  *   - large datasets (use SQLite via `@/db/client`)
  *   - secrets (use `expo-secure-store`)
- *
- * Note: `react-native-mmkv` requires a custom dev build (works fine with
- * `npx expo run:ios|android` or EAS dev clients; does not work in Expo Go).
  */
-export const storage = createMMKV({ id: 'helpy.default' });
+export const storage = AsyncStorage;
 
 /**
- * Zustand-compatible storage adapter for `persist` middleware.
+ * Zustand-compatible storage adapter for the `persist` middleware.
  */
-export const zustandMMKVStorage = {
-  getItem: (name: string) => {
-    const value = storage.getString(name);
-    return value ?? null;
-  },
-  setItem: (name: string, value: string) => {
-    storage.set(name, value);
-  },
-  removeItem: (name: string) => {
-    storage.remove(name);
-  },
+export const zustandAsyncStorage = {
+  getItem: (name: string) => AsyncStorage.getItem(name),
+  setItem: (name: string, value: string) => AsyncStorage.setItem(name, value),
+  removeItem: (name: string) => AsyncStorage.removeItem(name),
 };

@@ -37,7 +37,7 @@
 - [x] State management chosen and wired:
   - Server cache: **TanStack Query** ([src/lib/query-client.ts](src/lib/query-client.ts))
   - Client/UI state: **Zustand**
-  - Persistent settings: **MMKV** via `react-native-mmkv` ([src/lib/storage.ts](src/lib/storage.ts))
+  - Persistent settings: **AsyncStorage** via `@react-native-async-storage/async-storage` ([src/lib/storage.ts](src/lib/storage.ts)) — Expo Go compatible; can swap for MMKV later in a dev build for perf
 - [x] Add error boundary at root + dev-only logger ([src/components/error-boundary.tsx](src/components/error-boundary.tsx), [src/lib/logger.ts](src/lib/logger.ts))
 
 **Best practices**
