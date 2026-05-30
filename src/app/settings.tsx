@@ -1,12 +1,17 @@
+import { Button } from 'heroui-native';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useAuth } from '@/features/auth';
 import { ThemeToggle } from '@/features/theme';
 
 export default function SettingsScreen() {
+  const user = useAuth((s) => s.user);
+  const signOut = useAuth((s) => s.signOut);
+
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
@@ -21,6 +26,18 @@ export default function SettingsScreen() {
             </ThemedText>
             <ThemeToggle />
           </Section>
+
+          {user ? (
+            <Section title="Account">
+              <ThemedText type="small">{user.name ?? user.email}</ThemedText>
+              <ThemedText type="small" themeColor="textSecondary" style={styles.caption}>
+                Signed in with {user.provider}
+              </ThemedText>
+              <Button variant="secondary" onPress={signOut}>
+                <Button.Label>Sign out</Button.Label>
+              </Button>
+            </Section>
+          ) : null}
         </View>
       </SafeAreaView>
     </ThemedView>

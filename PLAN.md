@@ -92,13 +92,13 @@
 
 **Goal:** OAuth via `expo-auth-session` with PKCE; session persisted in `expo-secure-store`.
 
-- [ ] Install `expo-auth-session`, `expo-secure-store`, `expo-crypto`, `expo-web-browser`
-- [ ] Add Google OAuth client (iOS / Android / Web) — store IDs in env, not in repo
-- [ ] Add GitHub OAuth app (note: GitHub requires a backend for `client_secret`; plan a small Cloudflare Worker / Supabase edge function as token exchange proxy)
-- [ ] Implement `useAuth()` with states: `loading | signedOut | signedIn(user)`
-- [ ] Store tokens in SecureStore; never in MMKV or AsyncStorage
-- [ ] Add sign-in screen + sign-out action in Settings
-- [ ] Add auth guard wrapper in expo-router (`(auth)` and `(app)` route groups)
+- [x] Install `expo-auth-session`, `expo-secure-store`, `expo-crypto`, `expo-web-browser`
+- [x] Add Google OAuth client (iOS / Android / Web) — store IDs in env, not in repo
+- [ ] Add GitHub OAuth app — **deferred** (Google-only for v1; GitHub needs backend `client_secret` exchange)
+- [x] Implement `useAuth()` with states: `loading | signedOut | signedIn(user)`
+- [x] Store tokens in SecureStore; never in MMKV or AsyncStorage
+- [x] Add sign-in screen + sign-out action in Settings
+- [x] Add auth guard wrapper in expo-router (in-place `AuthGate` for v1; promote to `(auth)`/`(app)` route groups when more screens land)
 - [ ] Send id_token to backend (Phase 6) to mint app session / Supabase JWT
 
 **Best practices**
