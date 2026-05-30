@@ -15,8 +15,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: 'automatic',
   ios: {
     icon: './assets/expo.icon',
+    bundleIdentifier: 'com.moaazmustafa.helpy',
+    supportsTablet: true,
   },
   android: {
+    package: 'com.moaazmustafa.helpy',
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
       foregroundImage: './assets/images/android-icon-foreground.png',
@@ -28,6 +31,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   web: {
     output: 'static',
     favicon: './assets/images/favicon.png',
+  },
+  updates: {
+    url: 'https://u.expo.dev/5052209d-d624-4fc3-a134-d4442b7fbee0',
+  },
+  runtimeVersion: {
+    policy: 'appVersion',
   },
   plugins: [
     'expo-router',
@@ -50,6 +59,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     reactCompiler: true,
   },
   extra: {
+    eas: {
+      projectId: '5052209d-d624-4fc3-a134-d4442b7fbee0',
+    },
     // Public values only — anything here ships in the JS bundle and is readable
     // by anyone with the app binary. Real secrets must stay server-side.
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL ?? '',
