@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { HeroUINativeProvider } from 'heroui-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import AppTabs from '@/components/app-tabs';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { DatabaseProvider } from '@/db/provider';
@@ -26,7 +25,6 @@ function AuthGate() {
 
   return (
     <>
-      <AnimatedSplashOverlay />
       <AppTabs />
       <PrivacyCover />
       {isLocked ? <LockScreen /> : null}
