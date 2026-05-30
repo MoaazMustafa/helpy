@@ -28,17 +28,17 @@
 
 **Goal:** lock in folders, state, navigation, and tooling before features land.
 
-- [ ] Define feature-first folder layout under `src/features/<feature>/{components,hooks,services,types}`
-- [ ] Add path aliases for `@/features/*`, `@/db/*`, `@/lib/*` in [tsconfig.json](tsconfig.json) (verify metro resolver picks them up)
-- [ ] Introduce a typed env loader using `expo-constants` `extra` (no secrets in repo; `.env` via `app.config.ts`)
-- [ ] Migrate `app.json` → `app.config.ts` so env-driven config is possible
+- [x] Define feature-first folder layout under `src/features/<feature>/{components,hooks,services,types}` ([src/features/README.md](src/features/README.md))
+- [x] Add path aliases for `@/features/*`, `@/db/*`, `@/lib/*` in [tsconfig.json](tsconfig.json)
+- [x] Introduce a typed env loader using `expo-constants` `extra` ([src/lib/env.ts](src/lib/env.ts), [.env.example](.env.example))
+- [x] Migrate `app.json` → `app.config.ts` ([app.config.ts](app.config.ts))
 - [x] Add ESLint + Prettier baseline ([eslint.config.js](eslint.config.js), [prettier.config.js](prettier.config.js), `npm run lint` / `lint:fix` / `format` / `format:check` / `typecheck` / `check`)
-- [ ] Add Husky + lint-staged (optional) OR a single `npm run check` script
-- [ ] Decide state management:
-  - Server cache: **TanStack Query**
-  - Client/UI state: **Zustand** (small, RN-friendly)
-  - Persistent settings: **MMKV** via `react-native-mmkv`
-- [ ] Add error boundary at root + dev-only logger ([src/app/\_layout.tsx](src/app/_layout.tsx))
+- [x] Single `npm run check` script in place (Husky/lint-staged deferred — optional)
+- [x] State management chosen and wired:
+  - Server cache: **TanStack Query** ([src/lib/query-client.ts](src/lib/query-client.ts))
+  - Client/UI state: **Zustand**
+  - Persistent settings: **MMKV** via `react-native-mmkv` ([src/lib/storage.ts](src/lib/storage.ts))
+- [x] Add error boundary at root + dev-only logger ([src/components/error-boundary.tsx](src/components/error-boundary.tsx), [src/lib/logger.ts](src/lib/logger.ts))
 
 **Best practices**
 
@@ -52,11 +52,11 @@
 
 **Goal:** user-controlled light / dark / system theme persisted locally and synced to HeroUI.
 
-- [ ] Add `useThemePreference` Zustand store backed by MMKV (`light | dark | system`)
-- [ ] Resolve effective scheme via `useColorScheme()` + preference, expose `useTheme()` ([src/hooks/use-theme.ts](src/hooks/use-theme.ts))
-- [ ] Wire resolved scheme into `ThemeProvider` and any HeroUI config in [src/app/\_layout.tsx](src/app/_layout.tsx)
-- [ ] Add Settings screen toggle (segmented control: System / Light / Dark)
-- [ ] Update `expo-status-bar` style reactively
+- [x] Add `useThemePreference` Zustand store backed by MMKV ([src/features/theme/store.ts](src/features/theme/store.ts))
+- [x] Resolve effective scheme via `useColorScheme()` + preference, expose `useTheme()` / `useResolvedScheme()` ([src/hooks/use-theme.ts](src/hooks/use-theme.ts))
+- [x] Wire resolved scheme into `ThemeProvider` and native tab bar ([src/app/\_layout.tsx](src/app/_layout.tsx), [src/components/app-tabs.tsx](src/components/app-tabs.tsx))
+- [x] Settings screen toggle (segmented control: System / Light / Dark) ([src/app/settings.tsx](src/app/settings.tsx), [src/features/theme/components/theme-toggle.tsx](src/features/theme/components/theme-toggle.tsx))
+- [x] `expo-status-bar` style reacts to scheme ([src/app/\_layout.tsx](src/app/_layout.tsx))
 - [ ] Persist preference to remote `user_settings` (Phase 6) once auth is ready
 
 **Best practices**
