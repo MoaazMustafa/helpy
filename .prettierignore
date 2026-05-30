@@ -1,0 +1,24 @@
+# Build artifacts
+dist
+build
+.expo
+.expo-shared
+node_modules
+
+# Generated
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+android
+ios
+
+# Assets / binaries
+assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.ttf
+*.otf
