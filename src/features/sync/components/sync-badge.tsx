@@ -1,9 +1,8 @@
+import { Chip } from 'heroui-native';
 import { StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text';
-import { Colors, Spacing } from '@/constants/theme';
+import { Spacing } from '@/constants/theme';
 import { useSyncStore } from '@/features/sync';
-import { useResolvedScheme } from '@/hooks/use-theme';
 
 const LABEL: Record<ReturnType<typeof useSyncStore.getState>['status'], string> = {
   idle: 'Synced',
@@ -11,6 +10,17 @@ const LABEL: Record<ReturnType<typeof useSyncStore.getState>['status'], string> 
   offline: 'Offline',
   error: 'Sync error',
   disabled: 'Local-only',
+};
+
+const COLOR: Record<
+  ReturnType<typeof useSyncStore.getState>['status'],
+  'success' | 'warning' | 'default' | 'danger' | 'accent'
+> = {
+  idle: 'success',
+  syncing: 'warning',
+  offline: 'default',
+  error: 'danger',
+  disabled: 'default',
 };
 
 const DOT: Record<string, string> = {
@@ -22,31 +32,19 @@ const DOT: Record<string, string> = {
 };
 
 export function SyncBadge() {
-  const scheme = useResolvedScheme();
-  const colors = Colors[scheme];
   const status = useSyncStore((s) => s.status);
   const pending = useSyncStore((s) => s.pendingCount);
+  const label = `${LABEL[status]}${pending > 0 ? ` · ${pending}` : ''}`;
 
   return (
-    <View style={[styles.pill, { backgroundColor: colors.backgroundElement }]}>
+    <Chip variant="soft" color={COLOR[status]} size="sm" style={styles.chip}>
       <View style={[styles.dot, { backgroundColor: DOT[status] }]} />
-      <ThemedText type="small" themeColor="textSecondary">
-        {LABEL[status]}
-        {pending > 0 ? ` · ${pending}` : ''}
-      </ThemedText>
-    </View>
+      <Chip.Label>{label}</Chip.Label>
+    </Chip>
   );
 }
 
 const styles = StyleSheet.create({
-  pill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one,
-    borderRadius: 999,
-    alignSelf: 'flex-start',
-  },
+  chip: { alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
   dot: { width: 8, height: 8, borderRadius: 4 },
 });

@@ -1,3 +1,4 @@
+import { Card, Surface } from 'heroui-native';
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -46,29 +47,31 @@ export default function HomeScreen() {
             <SyncBadge />
           </View>
 
-          <View style={[styles.statsCard, { backgroundColor: colors.backgroundElement }]}>
-            <View style={styles.statsRow}>
-              <View style={styles.flex1}>
-                <ThemedText type="small" themeColor="textSecondary">
-                  Today
-                </ThemedText>
-                <ThemedText type="subtitle">
-                  {stats.done}
+          <Card style={styles.statsCard}>
+            <Surface variant="secondary" style={styles.statsSurface}>
+              <View style={styles.statsRow}>
+                <View style={styles.flex1}>
                   <ThemedText type="small" themeColor="textSecondary">
-                    {' / '}
-                    {stats.total}
+                    Today
                   </ThemedText>
-                </ThemedText>
+                  <ThemedText type="subtitle">
+                    {stats.done}
+                    <ThemedText type="small" themeColor="textSecondary">
+                      {' / '}
+                      {stats.total}
+                    </ThemedText>
+                  </ThemedText>
+                </View>
+                <View style={styles.ringCol}>
+                  <ProgressRing
+                    pct={stats.pct}
+                    color={colors.text}
+                    bgColor={colors.backgroundSelected}
+                  />
+                </View>
               </View>
-              <View style={styles.ringCol}>
-                <ProgressRing
-                  pct={stats.pct}
-                  color={colors.text}
-                  bgColor={colors.backgroundSelected}
-                />
-              </View>
-            </View>
-          </View>
+            </Surface>
+          </Card>
 
           {isLoading ? (
             <ThemedText type="small" themeColor="textSecondary">
@@ -152,7 +155,8 @@ const styles = StyleSheet.create({
   },
   header: { gap: Spacing.one },
   greeting: { fontSize: 36, lineHeight: 40 },
-  statsCard: { padding: Spacing.four, borderRadius: 18 },
+  statsCard: { borderRadius: 18, overflow: 'hidden' },
+  statsSurface: { padding: Spacing.four, borderRadius: 18 },
   statsRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   flex1: { flex: 1, gap: Spacing.one },
   ringCol: { width: 72, height: 72 },

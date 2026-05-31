@@ -1,4 +1,4 @@
-import { Button, Input } from 'heroui-native';
+import { Button, Chip, Input } from 'heroui-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
 
@@ -85,20 +85,15 @@ export function QuickAddTask({ visible, onClose }: { visible: boolean; onClose: 
               {PRESETS.map((p) => {
                 const active = p.id === preset.id;
                 return (
-                  <Pressable
+                  <Chip
                     key={p.label}
+                    variant={active ? 'primary' : 'soft'}
+                    color={active ? 'accent' : 'default'}
+                    size="sm"
                     onPress={() => setPreset(p)}
-                    style={[
-                      styles.chip,
-                      {
-                        backgroundColor: active
-                          ? colors.backgroundSelected
-                          : colors.backgroundElement,
-                      },
-                    ]}
                   >
-                    <ThemedText type="small">{p.label}</ThemedText>
-                  </Pressable>
+                    <Chip.Label>{p.label}</Chip.Label>
+                  </Chip>
                 );
               })}
             </View>
@@ -142,11 +137,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.one,
   },
   presets: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: 999,
-  },
   row: { flexDirection: 'row', gap: Spacing.two, marginTop: Spacing.two },
   flex1: { flex: 1 },
 });

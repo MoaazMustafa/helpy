@@ -2,6 +2,7 @@
 // and to add the COOP/COEP headers it requires for SharedArrayBuffer.
 // See https://docs.expo.dev/versions/v56.0.0/sdk/sqlite/#usage-on-web
 const { getDefaultConfig } = require('expo/metro-config');
+const { withUniwindConfig } = require('uniwind/metro');
 
 const config = getDefaultConfig(__dirname);
 
@@ -20,4 +21,9 @@ config.server.enhanceMiddleware = (middleware, server) => {
   };
 };
 
-module.exports = config;
+// Uniwind compiles Tailwind classes (used by heroui-native) into RN styles.
+// Must wrap the final exported config. See https://docs.uniwind.dev/quickstart
+module.exports = withUniwindConfig(config, {
+  cssEntryFile: './src/global.css',
+  dtsFile: './src/uniwind-types.d.ts',
+});

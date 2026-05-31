@@ -1,17 +1,14 @@
-import { Checkbox } from 'heroui-native';
+import { Checkbox, Surface } from 'heroui-native';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Colors, Spacing } from '@/constants/theme';
-import { useResolvedScheme } from '@/hooks/use-theme';
+import { Spacing } from '@/constants/theme';
 import { formatRelative } from '@/lib/date';
 
 import { useDeleteTask, useToggleTaskComplete } from '../hooks';
 import type { TaskWithReminder } from '../repo';
 
 export function TaskRow({ task }: { task: TaskWithReminder }) {
-  const scheme = useResolvedScheme();
-  const colors = Colors[scheme];
   const toggle = useToggleTaskComplete();
   const del = useDeleteTask();
   const completed = task.status === 'completed';
@@ -24,26 +21,28 @@ export function TaskRow({ task }: { task: TaskWithReminder }) {
   }
 
   return (
-    <Pressable
-      onLongPress={confirmDelete}
-      style={[styles.row, { backgroundColor: colors.backgroundElement }]}
-    >
-      <Checkbox isSelected={completed} onSelectedChange={() => toggle.mutate(task.id)} />
-      <View style={styles.body}>
-        <ThemedText type="default" style={completed ? [styles.title, styles.struck] : styles.title}>
-          {task.title}
-        </ThemedText>
-        {task.notes ? (
-          <ThemedText type="small" themeColor="textSecondary" numberOfLines={2}>
-            {task.notes}
+    <Pressable onLongPress={confirmDelete}>
+      <Surface variant="secondary" style={styles.row}>
+        <Checkbox isSelected={completed} onSelectedChange={() => toggle.mutate(task.id)} />
+        <View style={styles.body}>
+          <ThemedText
+            type="default"
+            style={completed ? [styles.title, styles.struck] : styles.title}
+          >
+            {task.title}
           </ThemedText>
-        ) : null}
-        {task.remindAt ? (
-          <ThemedText type="small" themeColor="textSecondary">
-            ⏰ {formatRelative(task.remindAt)}
-          </ThemedText>
-        ) : null}
-      </View>
+          {task.notes ? (
+            <ThemedText type="small" themeColor="textSecondary" numberOfLines={2}>
+              {task.notes}
+            </ThemedText>
+          ) : null}
+          {task.remindAt ? (
+            <ThemedText type="small" themeColor="textSecondary">
+              ⏰ {formatRelative(task.remindAt)}
+            </ThemedText>
+          ) : null}
+        </View>
+      </Surface>
     </Pressable>
   );
 }

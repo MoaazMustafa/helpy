@@ -93,8 +93,8 @@ export function useGoogleSignIn() {
       .catch((e) => log.error('Google profile fetch failed', e));
   }, [response, setSession]);
 
-  const signIn = useCallback(() => {
-    void promptAsync();
+  const signIn = useCallback(async () => {
+    await promptAsync();
   }, [promptAsync]);
 
   return { signIn, ready: !!request };
