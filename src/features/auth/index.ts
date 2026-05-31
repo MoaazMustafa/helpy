@@ -1,2 +1,2 @@
-export { useGoogleSignIn } from './google';
+export { isGoogleConfigured, useGoogleSignIn } from './google';
 export { type AuthUser, useAuth } from './store';

@@ -1,6 +1,7 @@
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useCallback, useEffect } from 'react';
+import { Platform } from 'react-native';
 
 import { env } from '@/lib/env';
 import { log } from '@/lib/logger';
@@ -9,6 +10,22 @@ import { useAuth } from './store';
 
 // Required for the OAuth redirect to close the in-app browser on completion.
 WebBrowser.maybeCompleteAuthSession();
+
+/**
+ * Returns true when a Google OAuth client ID is configured for the current
+ * platform. Callers should branch on this before invoking `useGoogleSignIn`,
+ * because `expo-auth-session` throws synchronously when the per-platform
+ * client ID is missing.
+ */
+export function isGoogleConfigured(): boolean {
+  const id = Platform.select({
+    ios: env.googleClientIdIos,
+    android: env.googleClientIdAndroid,
+    web: env.googleClientIdWeb,
+    default: '',
+  });
+  return !!id;
+}
 
 type GoogleUserInfo = {
   sub: string;
