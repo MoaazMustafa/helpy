@@ -7,6 +7,7 @@ import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { AppLockSettings } from '@/features/app-lock';
 import { useAuth } from '@/features/auth';
+import { SyncBadge } from '@/features/sync';
 import { ThemeToggle } from '@/features/theme';
 
 export default function SettingsScreen() {
@@ -30,6 +31,14 @@ export default function SettingsScreen() {
 
           <Section title="Security">
             <AppLockSettings />
+          </Section>
+
+          <Section title="Data & Sync">
+            <SyncBadge />
+            <ThemedText type="small" themeColor="textSecondary" style={styles.caption}>
+              All your data lives on this device first. When sync is configured, changes are pushed
+              to your account automatically.
+            </ThemedText>
           </Section>
 
           {user ? (
