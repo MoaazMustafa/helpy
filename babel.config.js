@@ -7,3 +7,4 @@ module.exports = function (api) {
     plugins: [['inline-import', { extensions: ['.sql'] }]],
   };
 };
+
